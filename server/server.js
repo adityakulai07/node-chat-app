@@ -22,10 +22,11 @@ io.on('connection', (socket) => {
   //socket.broadcast.emit from Admin text new user has joined(to everyone else in the chat room)
   socket.broadcast.emit('newMessage',generateMessage('Admin', 'New user has joined'));
   //Listener(chat app)
-  socket.on('createMessage', (message) => {
+  socket.on('createMessage', (message, callback) => {
     console.log('createMessage', message);
 
     io.emit('newMessage', generateMessage(message.from, message.text));
+    callback('This is sent from server');
     // socket.broadcast.emit('newMessage', {
     //   from:  message.from,
     //   text: message.text,
